@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{{ url_for('static',filename='js/index.js') }}"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=019b78ef1a0843b7479a120c38786342"></script>
+
+    <link rel="icon" href="{{ url_for('static', filename='img/core-img/favicon.png') }}">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename= 'main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename= 'css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <title>Report Car Page</title>
+    <style>
+        @media (max-width: 767px) {
+            .description {
+                display: none;
+            }
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap">
+
+    <div id="container">
+        <!-- contain map and aside -->
+
+
+        <button class="aside_open_btn" type="button" name="aside_open_btn"></button>
+
+        <!-- aside -->
+        <div id="aside">
+
+            <!-- aside header -->
+            <div id="aside_header">
+                <div class="aside_header_logo">
+                    <img class="aside_header_logo_img" src="http://placehold.it/100X40" alt="logo image">
+                    <button class="aside_header_logo_close_btn" type="button" name="aside_close_btn"></button>
+                </div>
+                <!-- aside_header_logo end -->
+
+                <div class="aside_header_search">
+                    <input id="search_txt" type="text" name="search_txt" value="충전소 이름 검색">
+                    <button id="search_btn" type="button" name="search_button"></button>
+                </div>
+                <!-- aside_header_search end -->
+            </div>
+            <!-- aside header end -->
+
+            <!-- aside contents -->
+            <div id="aside_contents">
+
+                <div id="aside_contents_header">
+                    <div id="aside_contents_header_name">
+                        감사위원 충전소
+                    </div>
+
+                    <button id="aside_contents_header_notifybtn" onclick="window.location.href='{{ url_for('home') }}'" type="button" name="button">메인 페이지</button>
+
+                </div>
+
+                <ul id="aside_contents_menu">
+
+                    <!-- menu item 1 -->
+                    <li class="aside_contents_menu_charginfo_title active"><a href="#"><span>충전기정보</span></a></li>
+
+                    <!-- menu item 2 -->
+                    <li class="aside_contents_menu_otherinfo_title"><a href="#"><span>기타정보</span></a></li>
+
+                </ul>
+                <!-- aside_contents_menu end -->
+                <div class="menu_item aside_contents_menu_charginfo">
+                    <table>
+                        <tr>
+                            <td class="item_title">급속여부</td><td>불가능</td>
+                        </tr>
+                        <tr>
+                            <td class="item_title">완속여부</td><td>가능</td>
+                        </tr>
+                        <tr>
+                            <td class="item_title">충전기타입</td><td>완속</td>
+                        </tr>
+                        <tr>
+                            <td class="item_title">충전상태</td><td>충전가능</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="menu_item aside_contents_menu_otherinfo">
+                    <table>
+                        <tr>
+                            <td class="item_title">주소</td><td>불가능</td>
+                        </tr>
+                        <tr>
+                            <td class="item_title">이용가능시간</td><td>가능</td>
+                        </tr>
+                        <tr>
+                            <td class="item_title">관리업체명</td><td>완속</td>
+                        </tr>
+                        <tr>
+                            <td class="item_title">주차료 부과 여부</td><td>충전가능</td>
+                        </tr>
+                        <tr>
+                            <td class="item_title">전화번호</td><td>123-456-7890</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- aside_contents end -->
+
+            <div id="aside_checkboxes">
+                <h3 id="aside_checkboxes_header">
+                    주변 탐색
+                </h3>
+                <table>
+                    <tr>
+                        <td><input id="restaurant" type="checkbox" name="" value=""><label for="restaurant">음식점/카페</label></td>
+                        <td><input id="tour" type="checkbox" name="" value=""><label for="tour">관광/숙박</label></td>
+                        <td><input id="medical" type="checkbox" name="" value=""><label for="medical">의료/복지</label></td>
+                    </tr>
+                    <tr>
+                        <td><input id="convenient" type="checkbox" name="" value=""><label for="convenient">쇼핑/편의</label></td>
+                        <td><input id="mart" type="checkbox" name="" value=""><label for="mart">마트</label></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- aside checkboxes end -->
+
+            <div class="aside_box restaurant_box">
+                <h3>음식점/카페</h3>
+                <div class="aside_box_wrap">
+                    <div class="aside_box_list">
+                        오는정김밥
+                    </div>
+                    <div class="aside_box_list">
+                        올래국수
+                    </div>
+                    <div class="aside_box_list">
+                        제주식당
+                    </div>
+                    <div class="aside_box_list">
+                        오는정김밥
+                    </div>
+                    <div class="aside_box_list">
+                        올래국수
+                    </div>
+                    <div class="aside_box_list">
+                        제주식당
+                    </div>
+                </div>
+            </div>
+
+            <div class="aside_box tour_box">
+                <h3>관광/숙박</h3>
+                <div class="aside_box_wrap">
+                    <div class="aside_box_list">
+                        제주팬션
+                    </div>
+                    <div class="aside_box_list">
+                        한라산
+                    </div>
+                    <div class="aside_box_list">
+                        서귀포팬션
+                    </div>
+                    <div class="aside_box_list">
+                        게스트하우스
+                    </div>
+                </div>
+            </div>
+
+            <div class="aside_box medical_box">
+                <h3>의료/복지</h3>
+                <div class="aside_box_wrap">
+                    <div class="aside_box_list">
+                        경희치과
+                    </div>
+                    <div class="aside_box_list">
+                        솔밭의원
+                    </div>
+                </div>
+            </div>
+
+            <div class="aside_box convenient_box">
+                <h3>쇼핑/편의</h3>
+                <div class="aside_box_wrap">
+                    <div class="aside_box_list">
+                        세븐일레븐
+                    </div>
+                    <div class="aside_box_list">
+                        씨유
+                    </div>
+                </div>
+            </div>
+
+            <div class="aside_box mart_box">
+                <h3>마트</h3>
+                <div class="aside_box_wrap">
+                    <div class="aside_box_list">
+                        세종마트
+                    </div>
+                    <div class="aside_box_list">
+                        대홍단마트
+                    </div>
+                    <div class="aside_box_list">
+                        한라마트
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- aside end  -->
+
+        <div class="container">
+            <div class="panel panel-default" style="max-height: 100%; max-width: 100%; object-fit: contain; padding:10px; margin:50px 0px 30px 0px; font-size:20px;">
+                <div class="panel-heading" style="color: orange">
+                    <h2 class="panel-title" style="font-size: 30px;">How to Use ?</h2>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li>
+                            If you want to have test your image file. Please Add image file via <strong><span style="border: 2px solid #92c800; color: #92c800;">　Add file　</span></strong> Button. <br />
+                        </li>
+                        <li>	　</li>
+                        <li>
+                            The maximum file size for uploads is
+                            <strong>5 MB</strong>( Uploading a large  size of image slows down the result. )
+                        </li>
+                        <li>	　</li>
+                        <li>
+                            Only image files (<strong>JPG, PNG</strong>) are allowed in this System.
+                        </li>
+                    </ul>
+                    <form id="upload-form"  action="{{ url_for('testing') }}" method="POST" enctype="multipart/form-data", runat="server" style="padding:20px;">
+                        <span for="file-picker" class="btn btn-success fileinput-button">
+                          <i class="fas fa-plus-square"></i>
+                                  <span>Add file...</span>
+                      <input id="file-picker" type="file" name="file" style="image-orientation: from-image;" accept="image/*" onclick="fileReset()" capture/>
+                    </span>
+                        {#            <!-- delete image and fadeout table-->#}
+                        {#            <button type="button" class="btn btn-warning cancel" onclick="fileReset();">#}
+                        {#                <i class="far fa-trash-alt"></i>#}
+                        {#                <span>Cancel file</span>#}
+                        {#            </button>#}
+
+                        <!-- Table about image informations and 2 buttons -->
+                        <table id="fade_info_table" role="presentation" style="margin-top:20px; image-orientation: from-image; max-height: 100%; max-width: 100%; object-fit: contain;" class="table table-striped">
+                            <tbody class="files_info">
+                            <tr class="template-upload fade in">
+                                <td>
+                                    <img style="display: none;" id="image_section" class="preview" src="#" alt="your image"/>
+                                    <canvas class="preview_img" id="canvas_img"></canvas>
+                                </td>
+                                <td>
+                                    <p id="file_name"></p>
+                                    <strong id="no_plate"></strong>
+                                </td>
+                                <td>
+                                    <p id="file_size"></p>
+                                    <strong id="error-msg"></strong>
+                                </td>
+                                <td id="loading">
+                                    <img src="{{ url_for('static', filename='img/core-img/loading.gif') }}" style="width: 35px;height: 35px; object-fit: contain;" alt="animated" />
+                                </td>
+                                <td id="lower_30">
+                                    <button type="button" class="btn btn-warning cancel" onclick="fileReset();">
+                                        <i class="far fa-trash-alt"></i>
+                                        <span>Cancel file</span>
+                                    </button>
+                                </td>
+                                <td id="upper_30" style="max-width: 100%;object-fit: contain;">
+                                    <button id="upload-button" type="submit" class="btn btn-primary start">
+                                        <i class="fas fa-play"></i>
+                                        <span>Start Process</span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning cancel" onclick="fileReset();">
+                                        <i class="far fa-trash-alt"></i>
+                                        <span>Cancel file</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <hr class="my-3">
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- container end -->
+        <!-- footer  -->
+        <div id="footer">
+            <div class="footer_logo">
+
+            </div>
+            <!-- footer_logo end -->
+            <div class="footer_copyright">
+
+                <ul class="footer_copyright_list">
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, </li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, </li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, </li>
+                </ul>
+                <!-- footer_copyright_list end -->
+
+                <p class="footer_copyright_text">
+                    Copyright 2020. Sejong Geoinfo-Engineering all rights reserved.
+                </p>
+                <!-- footer_copyright_text end -->
+            </div>
+            <!-- footer_copyright end -->
+        </div>
+        <!-- footer end -->
+
+    </div>
+    <link rel="stylesheet" href="{{ url_for('static',filename= 'css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename= 'css/index.css') }}">
+    <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/main_act.js') }}"></script>
+
+    <!-- Popper -->
+    <script src="{{ url_for('static',filename='js/popper.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/default-assets/active.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+</body>
+</html>
